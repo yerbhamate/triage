@@ -1,27 +1,35 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { FIRST_AID } from '../data/firstAid';
+import { FIRST_AID_ES } from '../data/es/firstAid.es';
+import { useLang } from '../i18n/LanguageContext';
 import { callNumber } from '../utils/contact';
 
 export function FirstAidScreen({ onBack }: { onBack: () => void }) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const { lang } = useLang();
+  const es = lang === 'es';
 
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>First Aid Guides</Text>
+      <Text style={styles.title}>{es ? 'Guías de primeros auxilios' : 'First Aid Guides'}</Text>
       <Text style={styles.subtitle}>
-        Step-by-step basics that work offline. In any life-threatening emergency, call 911 first.
+        {es
+          ? 'Pasos básicos que funcionan sin conexión. En cualquier emergencia que ponga en peligro la vida, llame primero al 911.'
+          : 'Step-by-step basics that work offline. In any life-threatening emergency, call 911 first.'}
       </Text>
 
       <Pressable style={styles.callBar} onPress={() => callNumber('911', '911')}>
-        <Text style={styles.callBarText}>{'\u{1F6A8}'} Call 911</Text>
+        <Text style={styles.callBarText}>{'\u{1F6A8}'} {es ? 'Llamar al 911' : 'Call 911'}</Text>
       </Pressable>
 
       <ScrollView contentContainerStyle={styles.list}>
-        {FIRST_AID.map((guide) => {
+        {FIRST_AID.map((base) => {
+          const tx = es ? FIRST_AID_ES[base.id] : undefined;
+          const guide = tx ? { ...base, ...tx } : base;
           const open = openId === guide.id;
           return (
             <View key={guide.id} style={styles.card}>
@@ -44,7 +52,9 @@ export function FirstAidScreen({ onBack }: { onBack: () => void }) {
                   ))}
                   {guide.note && <Text style={styles.note}>{guide.note}</Text>}
                   <Text style={styles.disclaimer}>
-                    This is a quick reminder, not a replacement for a certified first aid or CPR course.
+                    {es
+                      ? 'Este es un recordatorio rápido, no un sustituto de un curso certificado de primeros auxilios o RCP.'
+                      : 'This is a quick reminder, not a replacement for a certified first aid or CPR course.'}
                   </Text>
                 </View>
               )}

@@ -1,11 +1,13 @@
 import React from 'react';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import { callNumber } from '../utils/contact';
+import { useLang } from '../i18n/LanguageContext';
 
 export function EmergencyBar() {
+  const { lang } = useLang();
   return (
     <Pressable style={styles.bar} onPress={() => callNumber('911', '911')}>
-      <Text style={styles.text}>{'\u{1F6A8}'} In immediate danger? Tap to call 911</Text>
+      <Text style={styles.text}>{'\u{1F6A8}'} {lang === 'es' ? '¿Peligro inmediato? Toque para llamar al 911' : 'In immediate danger? Tap to call 911'}</Text>
     </Pressable>
   );
 }

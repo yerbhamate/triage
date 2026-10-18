@@ -2,23 +2,29 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, SectionList } from 'react-native';
 import { RESOURCES, GROUP_TITLES, ResourceGroup } from '../data/resources';
 import { ResourceCard } from '../components/ResourceCard';
+import { GROUP_TITLES_ES } from '../data/es/resources.es';
+import { useLang } from '../i18n/LanguageContext';
 
 const ORDER: ResourceGroup[] = ['crisis', 'safety', 'substance', 'poison', 'parents', 'caregivers', 'care'];
 
 const SECTIONS = ORDER.map((group) => ({
-  title: GROUP_TITLES[group],
+  title: group as string,
   data: RESOURCES.filter((r) => r.group === group),
 })).filter((s) => s.data.length > 0);
 
 export function ResourcesScreen({ onBack }: { onBack: () => void }) {
+  const { lang } = useLang();
+  const es = lang === 'es';
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Free Help Lines</Text>
+      <Text style={styles.title}>{es ? 'Líneas de ayuda gratuitas' : 'Free Help Lines'}</Text>
       <Text style={styles.subtitle}>
-        Phone and text lines work without internet (you only need a signal). Website links need internet. These are U.S. services.
+        {es
+          ? 'Las líneas de llamada y texto funcionan sin internet (solo necesita señal). Los enlaces a sitios web necesitan internet. Son servicios de EE. UU.'
+          : 'Phone and text lines work without internet (you only need a signal). Website links need internet. These are U.S. services.'}
       </Text>
 
       <SectionList
@@ -26,7 +32,11 @@ export function ResourcesScreen({ onBack }: { onBack: () => void }) {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         stickySectionHeadersEnabled={false}
-        renderSectionHeader={({ section }) => <Text style={styles.sectionTitle}>{section.title}</Text>}
+        renderSectionHeader={({ section }) => (
+          <Text style={styles.sectionTitle}>
+            {es ? GROUP_TITLES_ES[section.title] : GROUP_TITLES[section.title as ResourceGroup]}
+          </Text>
+        )}
         renderItem={({ item }) => <ResourceCard resource={item} />}
       />
     </View>

@@ -14,6 +14,7 @@ import { SafetyPlanScreen } from './src/screens/SafetyPlanScreen';
 import { VisitPrepScreen } from './src/screens/VisitPrepScreen';
 import { evaluateTriage } from './src/utils/triageEngine';
 import { SYMPTOMS, UrgencyLevel } from './src/data/triageData';
+import { LanguageProvider } from './src/i18n/LanguageContext';
 
 type Route =
   | { name: 'home' }
@@ -23,7 +24,7 @@ type Route =
   | { name: 'history' }
   | { name: ToolId };
 
-export default function App() {
+function AppInner() {
   const [route, setRoute] = useState<Route>({ name: 'home' });
   const [homeTab, setHomeTab] = useState<HomeTab>('physical');
 
@@ -99,5 +100,13 @@ export default function App() {
       {route.name === 'costs' && <CostsScreen onBack={goHome} />}
       {route.name === 'safetyplan' && <SafetyPlanScreen onBack={goHome} />}
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <LanguageProvider>
+      <AppInner />
+    </LanguageProvider>
   );
 }
