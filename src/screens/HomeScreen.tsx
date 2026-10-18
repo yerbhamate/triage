@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Pressable, FlatList, TextInput } from 'react-na
 import { SYMPTOMS } from '../data/triageData';
 import { EmergencyBar } from '../components/EmergencyBar';
 import { useLang } from '../i18n/LanguageContext';
+import { localizeSymptom } from '../i18n/localize';
 
 export type HomeTab = 'physical' | 'mental' | 'tools';
 export type ToolId = 'breathing' | 'grounding' | 'firstaid' | 'medicine' | 'resources' | 'costs' | 'safetyplan';
@@ -57,13 +58,14 @@ const TAB_LABELS: Record<HomeTab, string> = {
 export function HomeScreen({ tab, onTabChange, onSelectSymptom, onOpenTool, onOpenHistory }: HomeScreenProps) {
   const [query, setQuery] = useState('');
   const { lang, setLang } = useLang();
+  const syms = useMemo(() => SYMPTOMS.map((s) => localizeSymptom(s, lang)), [lang]);
   const es = lang === 'es';
 
   const items: GridItem[] = useMemo(() => {
     const q = query.trim().toLowerCase();
     let list: GridItem[];
     if (q) {
-      list = SYMPTOMS.filter((s) => s.label.toLowerCase().includes(q)).map((s) => ({
+      list = syms.filter((s) => s.label.toLowerCase().includes(q)).map((s) => ({
         id: s.id,
         label: s.label,
         icon: s.icon,
@@ -72,7 +74,7 @@ export function HomeScreen({ tab, onTabChange, onSelectSymptom, onOpenTool, onOp
     } else if (tab === 'tools') {
       list = TOOLS.map((t) => ({ ...t, label: es ? TOOL_LABELS_ES[t.id] : t.label }));
     } else {
-      list = SYMPTOMS.filter((s) => s.category === tab).map((s) => ({
+      list = syms.filter((s) => s.category === tab).map((s) => ({
         id: s.id,
         label: s.label,
         icon: s.icon,
@@ -81,7 +83,7 @@ export function HomeScreen({ tab, onTabChange, onSelectSymptom, onOpenTool, onOp
     }
     // Keep the last row from stretching when there is an odd number of cards.
     return list.length % 2 === 1 ? [...list, { id: '__spacer', label: '', icon: '', kind: 'spacer' }] : list;
-  }, [query, tab, es]);
+  }, [query, tab, es, syms]);
 
   return (
     <View style={styles.container}>

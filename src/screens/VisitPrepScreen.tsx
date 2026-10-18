@@ -10,7 +10,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import { SYMPTOMS, URGENCY_META, UrgencyLevel } from '../data/triageData';
+import { SYMPTOMS, UrgencyLevel } from '../data/triageData';
+import { useLang } from '../i18n/LanguageContext';
+import { localizeSymptom, localizeUrgency } from '../i18n/localize';
 
 interface VisitPrepProps {
   symptomId: string;
@@ -18,6 +20,15 @@ interface VisitPrepProps {
   checkedFlagIds: string[];
   onBack: () => void;
 }
+
+const SUGGESTED_QUESTIONS_ES = [
+  '¿Qué cree que está causando esto?',
+  '¿Qué pruebas o tratamientos recomienda, y cuánto costarán?',
+  '¿Hay opciones de menor costo?',
+  '¿Qué puedo hacer en casa, y qué señales significan que debo volver o ir a la sala de emergencias?',
+  '¿Puede explicarlo con palabras más sencillas, o escribírmelo?',
+  '¿Cuándo debería empezar a sentirme mejor?',
+];
 
 const SUGGESTED_QUESTIONS = [
   'What do you think is causing this?',
@@ -34,7 +45,10 @@ const SUGGESTED_QUESTIONS = [
  * unless the person taps Share.
  */
 export function VisitPrepScreen({ symptomId, urgency, checkedFlagIds, onBack }: VisitPrepProps) {
-  const symptom = SYMPTOMS.find((s) => s.id === symptomId)!;
+  const { lang } = useLang();
+  const es = lang === 'es';
+  const symptom = useMemo(() => localizeSymptom(SYMPTOMS.find((s) => s.id === symptomId)!, lang), [symptomId, lang]);
+  const QUESTIONS = es ? SUGGESTED_QUESTIONS_ES : SUGGESTED_QUESTIONS;
   const [started, setStarted] = useState('');
   const [meds, setMeds] = useState('');
   const [picked, setPicked] = useState<Set<number>>(new Set([0, 3]));
@@ -54,31 +68,31 @@ export function VisitPrepScreen({ symptomId, urgency, checkedFlagIds, onBack }: 
 
   const summary = useMemo(() => {
     const lines: string[] = [];
-    lines.push(`Visit summary (prepared with Triage on ${new Date().toLocaleDateString()})`);
+    lines.push(es ? `Resumen de la visita (preparado con Triage el ${new Date().toLocaleDateString('es-US')})` : `Visit summary (prepared with Triage on ${new Date().toLocaleDateString()})`);
     lines.push('');
-    lines.push(`Reason for visit: ${symptom.label}`);
-    lines.push(`Triage guidance I received: ${URGENCY_META[urgency].label}`);
+    lines.push(`${es ? 'Motivo de la visita' : 'Reason for visit'}: ${symptom.label}`);
+    lines.push(`${es ? 'Orientación de Triage que recibí' : 'Triage guidance I received'}: ${localizeUrgency(urgency, lang).label}`);
     lines.push('');
-    lines.push('Signs I reported:');
-    if (reportedSigns.length === 0) lines.push('- None of the listed warning signs');
+    lines.push(es ? 'Señales que reporté:' : 'Signs I reported:');
+    if (reportedSigns.length === 0) lines.push(es ? '- Ninguna de las señales de alarma de la lista' : '- None of the listed warning signs');
     reportedSigns.forEach((s) => lines.push(`- ${s}`));
     if (started.trim()) {
       lines.push('');
-      lines.push(`When it started: ${started.trim()}`);
+      lines.push(`${es ? 'Cuándo empezó' : 'When it started'}: ${started.trim()}`);
     }
     if (meds.trim()) {
       lines.push('');
-      lines.push(`Medicines and allergies: ${meds.trim()}`);
+      lines.push(`${es ? 'Medicinas y alergias' : 'Medicines and allergies'}: ${meds.trim()}`);
     }
     if (picked.size > 0) {
       lines.push('');
-      lines.push('Questions I want to ask:');
-      SUGGESTED_QUESTIONS.forEach((q, i) => {
+      lines.push(es ? 'Preguntas que quiero hacer:' : 'Questions I want to ask:');
+      QUESTIONS.forEach((q, i) => {
         if (picked.has(i)) lines.push(`- ${q}`);
       });
     }
     return lines.join('\n');
-  }, [symptom.label, urgency, reportedSigns, started, meds, picked]);
+  }, [symptom.label, urgency, reportedSigns, started, meds, picked, lang, es, QUESTIONS]);
 
   const share = async () => {
     try {
@@ -91,32 +105,34 @@ export function VisitPrepScreen({ symptomId, urgency, checkedFlagIds, onBack }: 
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Prepare for Your Visit</Text>
+      <Text style={styles.title}>{es ? 'Prepárese para su visita' : 'Prepare for Your Visit'}</Text>
       <Text style={styles.subtitle}>
-        Doctors have limited time. A short summary helps you say what matters. Nothing here is saved or sent unless you tap Share.
+        {es
+          ? 'Los médicos tienen poco tiempo. Un resumen breve le ayuda a decir lo que importa. Nada de esto se guarda ni se envía a menos que toque Compartir.'
+          : 'Doctors have limited time. A short summary helps you say what matters. Nothing here is saved or sent unless you tap Share.'}
       </Text>
 
       <ScrollView contentContainerStyle={styles.list} keyboardShouldPersistTaps="handled">
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>When did it start?</Text>
+          <Text style={styles.cardTitle}>{es ? '¿Cuándo empezó?' : 'When did it start?'}</Text>
           <TextInput
             style={styles.input}
             value={started}
             onChangeText={setStarted}
-            placeholder="e.g. 3 days ago, after a fall"
+            placeholder={es ? 'p. ej., hace 3 días, después de una caída' : 'e.g. 3 days ago, after a fall'}
             placeholderTextColor="#6B7280"
           />
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Medicines and allergies</Text>
+          <Text style={styles.cardTitle}>{es ? 'Medicinas y alergias' : 'Medicines and allergies'}</Text>
           <TextInput
             style={[styles.input, styles.inputTall]}
             value={meds}
             onChangeText={setMeds}
-            placeholder="Anything you take regularly, and anything you are allergic to"
+            placeholder={es ? 'Todo lo que toma con regularidad, y todo aquello a lo que es alérgico' : 'Anything you take regularly, and anything you are allergic to'}
             placeholderTextColor="#6B7280"
             multiline
             textAlignVertical="top"
@@ -124,9 +140,9 @@ export function VisitPrepScreen({ symptomId, urgency, checkedFlagIds, onBack }: 
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Questions to ask</Text>
-          <Text style={styles.hint}>Tap the ones you want to bring.</Text>
-          {SUGGESTED_QUESTIONS.map((q, i) => {
+          <Text style={styles.cardTitle}>{es ? 'Preguntas para hacer' : 'Questions to ask'}</Text>
+          <Text style={styles.hint}>{es ? 'Toque las que quiera llevar.' : 'Tap the ones you want to bring.'}</Text>
+          {QUESTIONS.map((q, i) => {
             const on = picked.has(i);
             return (
               <Pressable key={q} style={[styles.question, on && styles.questionOn]} onPress={() => toggle(i)}>
@@ -137,13 +153,13 @@ export function VisitPrepScreen({ symptomId, urgency, checkedFlagIds, onBack }: 
           })}
         </View>
 
-        <Text style={styles.previewLabel}>Your summary</Text>
+        <Text style={styles.previewLabel}>{es ? 'Su resumen' : 'Your summary'}</Text>
         <View style={styles.preview}>
           <Text style={styles.previewText}>{summary}</Text>
         </View>
 
         <Pressable style={styles.shareButton} onPress={share}>
-          <Text style={styles.shareButtonText}>Share or copy this summary</Text>
+          <Text style={styles.shareButtonText}>{es ? 'Compartir o copiar este resumen' : 'Share or copy this summary'}</Text>
         </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>

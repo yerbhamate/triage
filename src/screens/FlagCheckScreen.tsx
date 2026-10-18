@@ -2,6 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { SYMPTOMS } from '../data/triageData';
 import { evaluateTriage } from '../utils/triageEngine';
+import { useLang } from '../i18n/LanguageContext';
+import { localizeSymptom } from '../i18n/localize';
 
 interface FlagCheckScreenProps {
   symptomId: string;
@@ -10,7 +12,9 @@ interface FlagCheckScreenProps {
 }
 
 export function FlagCheckScreen({ symptomId, onResult, onBack }: FlagCheckScreenProps) {
-  const symptom = SYMPTOMS.find((s) => s.id === symptomId)!;
+  const { lang } = useLang();
+  const es = lang === 'es';
+  const symptom = localizeSymptom(SYMPTOMS.find((s) => s.id === symptomId)!, lang);
   const [checked, setChecked] = useState<Set<string>>(new Set());
 
   const toggleFlag = useCallback((id: string) => {
@@ -28,12 +32,12 @@ export function FlagCheckScreen({ symptomId, onResult, onBack }: FlagCheckScreen
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
 
       <Text style={styles.icon}>{symptom.icon}</Text>
       <Text style={styles.title}>{symptom.label}</Text>
-      <Text style={styles.subtitle}>Check anything that applies right now:</Text>
+      <Text style={styles.subtitle}>{es ? 'Marque todo lo que aplique en este momento:' : 'Check anything that applies right now:'}</Text>
 
       <ScrollView contentContainerStyle={styles.flagList}>
         {symptom.redFlags.map((flag) => (
@@ -46,12 +50,12 @@ export function FlagCheckScreen({ symptomId, onResult, onBack }: FlagCheckScreen
           <FlagRow key={flag.id} label={flag.label} checked={checked.has(flag.id)} onToggle={() => toggleFlag(flag.id)} />
         ))}
         {!hasAnyFlags && (
-          <Text style={styles.noFlagsText}>No additional warning signs to check for this one.</Text>
+          <Text style={styles.noFlagsText}>{es ? 'No hay otras señales de alarma que revisar en este caso.' : 'No additional warning signs to check for this one.'}</Text>
         )}
       </ScrollView>
 
       <Pressable style={styles.continueButton} onPress={() => onResult(symptomId, checked)}>
-        <Text style={styles.continueButtonText}>Get Guidance</Text>
+        <Text style={styles.continueButtonText}>{es ? 'Obtener orientación' : 'Get Guidance'}</Text>
       </Pressable>
     </View>
   );

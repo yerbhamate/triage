@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, FlatList, Alert } from 'react-native';
 import { getHistory, clearHistory, HistoryEntry } from '../storage/historyStorage';
-import { URGENCY_META } from '../data/triageData';
+import { SYMPTOMS } from '../data/triageData';
+import { useLang } from '../i18n/LanguageContext';
+import { localizeSymptom, localizeUrgency } from '../i18n/localize';
 
 interface HistoryScreenProps {
   onBack: () => void;
 }
 
 export function HistoryScreen({ onBack }: HistoryScreenProps) {
+  const { lang } = useLang();
+  const es = lang === 'es';
+  const labelFor = (item: HistoryEntry) => {
+    const base = SYMPTOMS.find((s) => s.id === item.symptomId);
+    return base ? localizeSymptom(base, lang).label : item.symptomLabel;
+  };
   const [entries, setEntries] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
@@ -15,10 +23,13 @@ export function HistoryScreen({ onBack }: HistoryScreenProps) {
   }, []);
 
   const confirmClear = () => {
-    Alert.alert('Clear all past checks?', 'This removes them from this device. It cannot be undone.', [
-      { text: 'Cancel', style: 'cancel' },
+    Alert.alert(
+      es ? '¿Borrar todas las revisiones anteriores?' : 'Clear all past checks?',
+      es ? 'Esto las elimina de este dispositivo. No se puede deshacer.' : 'This removes them from this device. It cannot be undone.',
+      [
+      { text: es ? 'Cancelar' : 'Cancel', style: 'cancel' },
       {
-        text: 'Clear all',
+        text: es ? 'Borrar todo' : 'Clear all',
         style: 'destructive',
         onPress: async () => {
           await clearHistory();
@@ -31,15 +42,17 @@ export function HistoryScreen({ onBack }: HistoryScreenProps) {
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Past Checks</Text>
+      <Text style={styles.title}>{es ? 'Revisiones anteriores' : 'Past Checks'}</Text>
       <Text style={styles.subtitle}>
-        Stored only on this device. Sensitive topics are never saved here.
+        {es
+          ? 'Se guardan solo en este dispositivo. Los temas sensibles nunca se guardan aquí.'
+          : 'Stored only on this device. Sensitive topics are never saved here.'}
       </Text>
 
       {entries.length === 0 ? (
-        <Text style={styles.emptyText}>No checks yet.</Text>
+        <Text style={styles.emptyText}>{es ? 'Todavía no hay revisiones.' : 'No checks yet.'}</Text>
       ) : (
         <>
           <FlatList
@@ -47,13 +60,13 @@ export function HistoryScreen({ onBack }: HistoryScreenProps) {
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.list}
             renderItem={({ item }) => {
-              const meta = URGENCY_META[item.urgency];
+              const meta = localizeUrgency(item.urgency, lang);
               return (
                 <View style={styles.row}>
                   <View style={[styles.dot, { backgroundColor: meta.color }]} />
                   <View style={styles.rowText}>
-                    <Text style={styles.rowLabel}>{item.symptomLabel}</Text>
-                    <Text style={styles.rowDate}>{new Date(item.timestamp).toLocaleString()}</Text>
+                    <Text style={styles.rowLabel}>{labelFor(item)}</Text>
+                    <Text style={styles.rowDate}>{new Date(item.timestamp).toLocaleString(es ? 'es-US' : undefined)}</Text>
                   </View>
                   <Text style={[styles.rowUrgency, { color: meta.color }]}>{meta.label}</Text>
                 </View>
@@ -61,7 +74,7 @@ export function HistoryScreen({ onBack }: HistoryScreenProps) {
             }}
           />
           <Pressable style={styles.clearButton} onPress={confirmClear}>
-            <Text style={styles.clearButtonText}>Clear all past checks</Text>
+            <Text style={styles.clearButtonText}>{es ? 'Borrar todas las revisiones anteriores' : 'Clear all past checks'}</Text>
           </Pressable>
         </>
       )}
