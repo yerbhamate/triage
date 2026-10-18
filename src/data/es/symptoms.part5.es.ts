@@ -1,0 +1,191 @@
+import type { SymptomTextEs } from './symptomText';
+
+export const PART5: Record<string, SymptomTextEs> = {
+  period_pain: {
+    label: 'Dolor menstrual o reglas abundantes',
+    flags: {
+      per_soak: 'Empapa una toalla sanitaria o un tampón cada hora durante 2 horas o más',
+      per_faint: 'Desmayos o mareo intenso',
+      per_preg: 'Posible embarazo con dolor intenso de un lado de la barriga o sangrado',
+      per_fever: 'Fiebre, o flujo de mal olor, junto con el dolor',
+      per_nohelp: 'Dolor tan fuerte que la medicina no ayuda',
+      per_change: 'La regla cambió de repente o se volvió muy irregular',
+      per_missed: 'Se le han saltado varias reglas seguidas',
+      per_life: 'El dolor le impide ir a la escuela o al trabajo casi todos los meses',
+    },
+    advice: {
+      emergency: 'Llame a emergencias o vaya a la sala de emergencias. Estas señales pueden indicar una pérdida peligrosa de sangre o un embarazo fuera del útero.',
+      urgent_care: 'Hágase ver hoy. La fiebre o el dolor intenso que la medicina no alivia necesita un examen.',
+      see_doctor: 'Consulte a un médico. Las reglas dolorosas, muy abundantes o irregulares son comunes y con frecuencia se pueden tratar. No tiene que aguantarlas sin más.',
+      self_care: 'Una almohadilla térmica, el movimiento suave y mucha agua pueden ayudar. Un analgésico de venta libre según la etiqueta suele funcionar bien.',
+    },
+  },
+  urinary: {
+    label: 'Ardor al orinar (posible infección urinaria)',
+    flags: {
+      uti_confused: 'Confusión nueva o somnolencia extrema, sobre todo en un adulto mayor',
+      uti_cant: 'No puede orinar nada',
+      uti_fever: 'Fiebre o escalofríos con temblores',
+      uti_back: 'Dolor en el costado o en la espalda',
+      uti_vomit: 'Vómitos',
+      uti_preg: 'Está embarazada',
+      uti_blood: 'Sangre en la orina',
+      uti_repeat: 'Esto sigue regresando',
+      uti_male: 'La persona es hombre',
+    },
+    advice: {
+      emergency: 'Llame a emergencias o vaya a la sala de emergencias. La confusión, o no poder orinar, puede ser grave.',
+      urgent_care: 'Hágase ver hoy. La fiebre, el dolor de espalda o los vómitos pueden significar que la infección llegó a los riñones.',
+      see_doctor: 'Consulte a un médico en un día o dos. Las infecciones urinarias suelen necesitar antibióticos, y muchas clínicas y servicios de telemedicina pueden ayudar rápido.',
+      self_care: 'Tome mucha agua, pero no espere a que se quite sola. Estas infecciones suelen necesitar antibióticos, así que consulte a un médico en un día o dos.',
+    },
+  },
+  dizziness: {
+    label: 'Mareo o aturdimiento',
+    flags: {
+      diz_chest: 'Dolor de pecho, latidos acelerados o irregulares, o falta de aire',
+      diz_neuro: 'Cara caída, habla arrastrada, debilidad o un dolor de cabeza repentino e intenso',
+      diz_head: 'Empezó después de un golpe en la cabeza',
+      diz_faint: 'Se desmayó, o casi se desmaya',
+      diz_spin: 'La habitación da vueltas con vómitos, o pérdida repentina de la audición',
+      diz_stand: 'Sobre todo cuando se pone de pie rápidamente',
+      diz_meds: 'Empezó después de una medicina nueva',
+      diz_repeat: 'Sigue ocurriendo',
+    },
+    advice: {
+      emergency: 'Llame a emergencias. Estas señales pueden indicar un problema del corazón, un derrame cerebral o una lesión en la cabeza.',
+      urgent_care: 'Hágase ver hoy. El desmayo, o que todo dé vueltas con vómitos, necesita un examen.',
+      see_doctor: 'Consulte a un médico. El mareo que sigue ocurriendo, o que empezó después de una medicina nueva, vale la pena revisarlo. No deje de tomar una medicina recetada sin preguntar.',
+      self_care: 'Siéntese o acuéstese de inmediato, tome sorbos de agua y levántese despacio después. El mareo al ponerse de pie suele venir de la deshidratación o de levantarse demasiado rápido. Los movimientos bruscos pueden empeorarlo.',
+    },
+  },
+  fall_older: {
+    label: 'Una caída (adulto mayor)',
+    flags: {
+      fall_head: 'Se golpeó la cabeza, sobre todo si toma anticoagulantes',
+      fall_cantup: 'No puede levantarse, o tiene dolor intenso en la cadera, la pierna o la espalda',
+      fall_confused: 'Confusión nueva, somnolencia o vómitos',
+      fall_bleed: 'Sangrado abundante',
+      fall_joint: 'Hinchazón o dolor en una articulación o extremidad',
+      fall_cause: 'La caída ocurrió por mareo, desmayo o latidos acelerados',
+      fall_again: 'No es la primera caída este año',
+      fall_afraid: 'Ahora tiene miedo de caminar o de salir',
+    },
+    advice: {
+      emergency: 'Llame a emergencias. No mueva a la persona si es posible que haya una lesión de cuello, espalda o cadera. Un golpe en la cabeza tomando anticoagulantes puede ser grave aunque la persona parezca estar bien.',
+      urgent_care: 'Hágase ver hoy. El dolor en una extremidad o articulación puede ser una fractura, y una caída causada por mareo necesita que se encuentre la causa.',
+      see_doctor: 'Cuéntele al médico cualquier caída, aunque no haya lesión. Pida una revisión de las medicinas y de la vista. Las caídas muchas veces se pueden prevenir.',
+      self_care: 'Cuéntele al médico cualquier caída. Para reducir el riesgo de otra: quite las alfombras sueltas, ponga luces de noche y barras de apoyo, use zapatos firmes y manténgase activo para conservar la fuerza y el equilibrio.',
+    },
+  },
+  social_anxiety: {
+    label: 'Ansiedad social',
+    flags: {
+      sa_harm: 'Pensamientos de hacerse daño',
+      sa_avoid: 'Evita la escuela, el trabajo o salir de casa por esto',
+      sa_panic: 'Ataques de pánico en situaciones sociales',
+      sa_months: 'Ha durado 6 meses o más',
+      sa_subst: 'Usa alcohol u otras sustancias para soportar las situaciones sociales',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. No tiene que enfrentar esto a solas.',
+      urgent_care: 'Por favor, hable pronto con un médico o consejero. La ansiedad social es común y se trata bien, y evitar las situaciones tiende a empeorarla.',
+      see_doctor: 'Considere hablar con un terapeuta. Tratamientos como la terapia cognitivo-conductual son muy eficaces para la ansiedad social.',
+      self_care: 'Dé pasos pequeños hacia las situaciones que le dan miedo, en vez de evitarlas. Respirar despacio antes de un evento social ayuda, y también ayuda concentrarse en la otra persona en vez de en cómo se ve usted. Casi todo el mundo se preocupa por esto mucho más de lo que los demás notan.',
+    },
+  },
+  low_motivation: {
+    label: 'Poca motivación o sensación de estancamiento',
+    flags: {
+      lm_harm: 'Pensamientos de hacerse daño',
+      lm_hopeless: 'Se siente sin esperanza o sin valor',
+      lm_basic: 'Le cuesta comer, asearse o levantarse de la cama',
+      lm_weeks: 'Dura más de 2 semanas',
+      lm_interest: 'Perdió el interés en cosas que antes disfrutaba',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. Usted importa, y hay ayuda disponible a cualquier hora.',
+      urgent_care: 'Por favor, comuníquese hoy con un médico o consejero, o llame o envíe un texto al 988. Lo que describe tiene tratamiento.',
+      see_doctor: 'La falta de motivación que dura semanas puede ser señal de depresión, que es común y se puede tratar. Considere hablar con un médico o consejero.',
+      self_care: 'Haga la tarea más pequeña: prométase solo 5 minutos. Reciba luz del día, muévase un poco y mantenga una pequeña rutina diaria. Contarle a una persona cómo se siente puede aliviarle más de lo que espera.',
+    },
+  },
+  anger: {
+    label: 'Enojo o irritabilidad',
+    flags: {
+      anger_others: 'Pensamientos de hacerle daño a otra persona',
+      anger_self: 'Pensamientos de hacerse daño',
+      anger_hurt: 'Ha lastimado a alguien, roto cosas o asustado a personas cercanas',
+      anger_rel: 'Está dañando sus relaciones o su trabajo',
+      anger_often: 'Arrebatos frecuentes de los que se arrepiente',
+    },
+    advice: {
+      emergency: 'Si está pensando en hacerle daño a alguien o en hacerse daño, aléjese de la situación ahora y llame o envíe un texto al 988. Si alguien está en peligro inmediato, llame a emergencias.',
+      urgent_care: 'Por favor, hable pronto con un consejero. El enojo que ha llevado a lastimar a personas o a romper cosas es algo que la ayuda puede cambiar. Llame o envíe un texto al 988 en cualquier momento en que necesite hablar.',
+      see_doctor: 'Considere hablar con un consejero o médico. El enojo suele estar ligado al estrés, al sueño, al dolor o a algo más profundo, y responde bien al apoyo.',
+      self_care: 'En el momento: aléjese, exhale despacio (más tiempo del que inhala) y mueva el cuerpo. Ponga nombre a lo que siente. Vuelva a la conversación cuando esté tranquilo.',
+    },
+  },
+  self_esteem: {
+    label: 'Autoestima baja o autocrítica dura',
+    flags: {
+      se_harm: 'Pensamientos de hacerse daño',
+      se_burden: 'Se siente sin valor, o como una carga para los demás',
+      se_weeks: 'La mayoría de los días, durante semanas',
+      se_avoid: 'Evita cosas porque siente que no es lo bastante bueno',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. Lo que siente sobre sí mismo en este momento no es toda la verdad, y hay ayuda.',
+      urgent_care: 'Por favor, hable pronto con un médico o consejero, o llame o envíe un texto al 988. Sentirse como una carga es un síntoma que el tratamiento puede aliviar.',
+      see_doctor: 'Un consejero puede ayudar con la autocrítica dura. Es una de las cosas que la terapia sabe cambiar.',
+      self_care: 'Note esa voz dura y pregúntese qué le diría a un amigo en la misma situación. Escriba tres cosas que manejó bien esta semana. Reduzca el desplazamiento por las redes que le deja comparándose con los demás, y cumpla una pequeña promesa consigo mismo cada día.',
+    },
+  },
+  screen_time: {
+    label: 'Demasiado tiempo en pantallas o desplazamiento sin fin por las redes',
+    flags: {
+      scr_harm: 'Pensamientos de hacerse daño',
+      scr_sleep: 'Se desvela la mayoría de las noches por el teléfono',
+      scr_duty: 'Falta a la escuela, al trabajo o a ratos con otras personas por esto',
+      scr_cant: 'Ha intentado reducirlo y no ha podido',
+      scr_mood: 'Por lo general se siente peor después de usarlo',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. No tiene que estar solo con esto.',
+      urgent_care: 'Por favor, hable pronto con un médico o consejero. Cuando el teléfono le cuesta el sueño o sus responsabilidades, el apoyo puede ayudar.',
+      see_doctor: 'Considere hablar con un consejero. El desplazamiento compulsivo por las redes suele ser una forma de sobrellevar el estrés, la soledad o el ánimo bajo, y esa es la parte que vale la pena examinar.',
+      self_care: 'Cargue el teléfono fuera del dormitorio, apague las notificaciones que no sean esenciales, fije un límite diario en los ajustes de tiempo de pantalla del teléfono y planee algunas horas sin desplazarse por las redes. Una caminata corta es un buen reemplazo.',
+    },
+  },
+  constant_worry: {
+    label: 'Preocupación que no se apaga',
+    flags: {
+      cw_harm: 'Pensamientos de hacerse daño',
+      cw_function: 'La preocupación interfiere con el trabajo, la escuela o las relaciones',
+      cw_body: 'Inquietud, tensión muscular, problemas de estómago o mal sueño la mayoría de los días',
+      cw_months: 'La mayoría de los días durante 6 meses o más',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. Hay ayuda disponible a cualquier hora.',
+      urgent_care: 'Por favor, hable pronto con un médico o consejero. La preocupación que interrumpe la vida diaria es una condición común que se puede tratar.',
+      see_doctor: 'Considere hablar con un médico o terapeuta. La preocupación constante durante meses se trata muy bien.',
+      self_care: 'Pruebe un tiempo diario de 15 minutos para preocuparse y luego deje las preocupaciones a un lado hasta mañana. Escriba cada una junto a lo que puede y lo que no puede controlar. Respirar despacio, moverse y tomar menos cafeína ayudan.',
+    },
+  },
+  caregiver_strain: {
+    label: 'Cuidar a alguien (agotamiento del cuidador)',
+    flags: {
+      cg_hurt: 'Le preocupa poder hacerle daño a la persona que cuida, o a sí mismo',
+      cg_health: 'Agotado, enfermo o descuidando su propia salud por cuidar a alguien',
+      cg_alone: 'Sin descanso y sin nadie que le ayude',
+      cg_guilt: 'Se siente culpable, resentido o abrumado la mayoría de los días',
+      cg_sleep: 'No duerme ni come bien',
+    },
+    advice: {
+      emergency: 'Si le preocupa poder hacerle daño a la persona que cuida, o a sí mismo, llame o envíe un texto al 988 ahora, o llame a emergencias si alguien está en peligro. Pedir ayuda antes de llegar a ese punto es una muestra de responsabilidad, no un fracaso.',
+      urgent_care: 'Usted está cargando con mucho. Por favor, comuníquese hoy con su propio médico o con el 988, y pregunte por el cuidado de relevo, que les da un descanso a los cuidadores. El Localizador de Cuidado para Adultos Mayores puede conectarle con ayuda local.',
+      see_doctor: 'Los cuidadores con frecuencia descuidan su propia salud. Cuéntele a su propio médico, y busque cuidado de relevo y grupos de apoyo para cuidadores.',
+      self_care: 'Sentirse al límite es muy común en los cuidadores. Acepte la ayuda cuando se la ofrezcan, tome descansos cortos, vaya a sus propias citas y conecte con otros cuidadores.',
+    },
+  },
+};

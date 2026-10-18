@@ -1,0 +1,220 @@
+import type { SymptomTextEs } from './symptomText';
+
+export const PART3: Record<string, SymptomTextEs> = {
+  headache: {
+    label: 'Dolor de cabeza intenso o inusual',
+    flags: {
+      thunderclap: 'Dolor de cabeza repentino y explosivo, el peor de su vida',
+      headache_neuro: 'Debilidad, adormecimiento, pérdida de la vista, habla arrastrada o confusión',
+      headache_fever_neck: 'Fiebre y rigidez en el cuello junto con el dolor de cabeza',
+      headache_after_injury: 'Empezó después de un golpe en la cabeza',
+      headache_vomit: 'Vómitos repetidos junto con el dolor',
+      headache_days: 'Dura más de 3 días o sigue regresando',
+      headache_new_over50: 'Es un tipo nuevo de dolor de cabeza y usted tiene más de 50 años',
+    },
+    advice: {
+      emergency: 'Llame a emergencias ahora. Estas señales de alarma pueden indicar sangrado en el cerebro, una infección o un derrame cerebral. No maneje usted mismo.',
+      urgent_care: 'Hágase ver hoy. Un dolor de cabeza nuevo o que empeora, con estas señales, necesita un examen médico.',
+      see_doctor: 'Programe pronto una cita con un médico, sobre todo si los dolores de cabeza se vuelven más frecuentes.',
+      self_care: 'Descanse en una habitación tranquila y con poca luz, tome agua y pruebe un analgésico de venta libre según las indicaciones de la etiqueta. Consulte a un médico si los dolores de cabeza se vuelven frecuentes o intensos.',
+    },
+  },
+  sprain_fracture: {
+    label: 'Torcedura, distensión o hueso roto',
+    flags: {
+      bone_visible: 'Se ve el hueso, o la extremidad luce muy deformada',
+      no_circulation: 'La mano o el pie debajo de la lesión está frío, pálido, azul o adormecido',
+      neck_back: 'Dolor de cuello o espalda después de una caída o choque graves',
+      cant_bear_weight: 'No puede apoyar peso ni usarlo con normalidad',
+      severe_swelling: 'La hinchazón o el moretón apareció rápido y es intenso',
+      bone_tender: 'Dolor al presionar directamente sobre el hueso',
+    },
+    advice: {
+      emergency: 'Llame a emergencias. Si es posible que haya una lesión de cuello o espalda, no mueva a la persona. No intente enderezar una extremidad deformada. Cubra cualquier herida abierta con un paño limpio.',
+      urgent_care: 'Hágase una radiografía hoy en atención urgente o en la sala de emergencias. Podría ser una fractura. Mantenga la zona quieta y sostenida.',
+      see_doctor: 'Si el dolor o la hinchazón no mejoran claramente en unos días, hágalo revisar.',
+      self_care: 'Déjelo descansar, póngale una compresa fría envuelta en un paño durante 15 a 20 minutos cada vez, véndelo suavemente y manténgalo elevado por encima del nivel del corazón. La mayoría de las torceduras leves mejoran en una o dos semanas.',
+    },
+  },
+  heat_illness: {
+    label: 'Agotamiento por calor o golpe de calor',
+    flags: {
+      heat_confused: 'Confusión, agitación o habla arrastrada',
+      heat_no_sweat: 'La piel está caliente y seca, o dejó de sudar',
+      heat_faint: 'Desmayo o una convulsión',
+      heat_heavy_sweat: 'Sudor abundante, calambres, o piel pálida y húmeda',
+      heat_nausea: 'Náuseas, dolor de cabeza o mareo después del calor o del esfuerzo',
+    },
+    advice: {
+      emergency: 'Esto puede ser un golpe de calor, que pone en peligro la vida. Llame a emergencias, lleve a la persona a la sombra o a un lugar con aire acondicionado y enfríela con paños mojados o agua fresca mientras espera.',
+      urgent_care: 'Vaya a un lugar fresco, tome sorbos de agua y consiga consejo médico hoy. El agotamiento por calor puede convertirse en golpe de calor.',
+      see_doctor: 'Descanse en un lugar fresco y tome líquidos. Consulte a un médico si no se siente normal después de unas horas.',
+      self_care: 'Vaya a un lugar fresco, aflójese la ropa, tome sorbos de agua y descanse. Si los síntomas duran más de una hora o empeoran, busque atención.',
+    },
+  },
+  low_blood_sugar: {
+    label: 'Azúcar baja o alta en la sangre',
+    flags: {
+      sugar_unresponsive: 'Inconsciente, muy difícil de despertar o con una convulsión',
+      sugar_cant_swallow: 'No puede tragar con seguridad',
+      sugar_confused: 'Muy confundido o incapaz de responder con normalidad',
+      sugar_vomiting: 'Vómitos, dolor de barriga o aliento con olor a fruta, con azúcar muy alta',
+      sugar_repeat_lows: 'El azúcar baja sigue regresando después de tratarla',
+    },
+    advice: {
+      emergency: 'Llame a emergencias. No ponga comida ni bebida en la boca de una persona inconsciente o que no puede tragar. Si tiene un kit de glucagón y sabe usarlo, úselo.',
+      urgent_care: 'Consiga ayuda médica hoy. Los vómitos con azúcar muy alta, o las bajas que siguen regresando, pueden volverse peligrosos rápidamente.',
+      see_doctor: 'Si está despierto y puede tragar, trate una posible baja con azúcar de acción rápida, como jugo, refresco normal o tabletas de glucosa, y vuelva a medir en unos 15 minutos. Cuéntele a su médico sobre cualquier baja o alta que sea nueva para usted.',
+      self_care: 'Si está despierto y puede tragar, trate una posible baja con azúcar de acción rápida y vuelva a medir en unos 15 minutos.',
+    },
+  },
+  poisoning: {
+    label: 'Tragó algo dañino',
+    flags: {
+      pois_unresponsive: 'Inconsciente, difícil de despertar o con una convulsión',
+      pois_breathing: 'Dificultad para respirar, o respiración muy lenta',
+      pois_burns: 'Quemaduras o ampollas alrededor de la boca, o vómito con sangre',
+      pois_battery: 'Un niño se tragó una pila de botón o imanes',
+      pois_vomit: 'Vómitos, mareo o somnolencia inusual',
+      pois_med: 'Tomó más medicina de la indicada, o la medicina de otra persona',
+    },
+    advice: {
+      emergency: 'Llame a emergencias ahora. Luego, si puede, llame a Control de Envenenamientos al 1-800-222-1222. No haga vomitar a la persona a menos que un profesional se lo indique.',
+      urgent_care: 'Llame ahora a Control de Envenenamientos al 1-800-222-1222. Es gratis y atiende las 24 horas, y le dirán si necesita que lo vean. Tenga a mano el envase o el producto.',
+      see_doctor: 'Llame a Control de Envenenamientos al 1-800-222-1222 para pedir consejo, aunque la persona se sienta bien.',
+      self_care: 'Llame a Control de Envenenamientos al 1-800-222-1222 aunque la persona se sienta bien. Es gratis y atiende las 24 horas.',
+    },
+  },
+  rash: {
+    label: 'Sarpullido o ronchas en la piel',
+    flags: {
+      rash_breathing: 'Dificultad para respirar, o hinchazón de la cara, los labios o la lengua',
+      rash_purple: 'Manchas moradas u oscuras que no se borran al presionarlas, con fiebre',
+      rash_blisters: 'Ampollas extendidas o piel que se pela, o llagas en la boca o los ojos',
+      rash_with_fever: 'Fiebre junto con el sarpullido',
+      rash_spreading: 'Se extiende rápidamente o duele mucho',
+      rash_infected: 'Caliente, hinchado o con secreción (posible infección)',
+    },
+    advice: {
+      emergency: 'Llame a emergencias. Estas señales pueden indicar una reacción alérgica grave o una infección peligrosa de la piel o de la sangre.',
+      urgent_care: 'Hágase ver hoy. Un sarpullido con fiebre o que se extiende rápido debe ser examinado.',
+      see_doctor: 'Si dura más de unos días o sigue regresando, consulte a un médico.',
+      self_care: 'Evite rascarse y los posibles desencadenantes, como jabones, alimentos, medicinas o plantas nuevos. Las compresas frías y una crema hidratante sin fragancia pueden ayudar. Consulte a un médico si se extiende o no mejora en unos días.',
+    },
+  },
+  eye_injury: {
+    label: 'Lesión en el ojo o cambio repentino de la vista',
+    flags: {
+      eye_chemical: 'Le salpicó un químico en el ojo',
+      eye_vision_loss: 'Pérdida repentina de la vista, o una sombra como una cortina',
+      eye_embedded: 'Algo está clavado en el ojo, o el ojo se cortó o se perforó',
+      eye_pain_light: 'Dolor de ojo con enrojecimiento y sensibilidad a la luz',
+      eye_blow: 'Recibió un golpe en el ojo con hinchazón o visión doble',
+    },
+    advice: {
+      emergency: 'Si le salpicó un químico, enjuague el ojo con agua limpia corriente durante al menos 15 minutos mientras consigue ayuda de emergencia. No se frote el ojo ni intente quitar nada que esté clavado.',
+      urgent_care: 'Vaya hoy a un oftalmólogo o a atención urgente. No se frote el ojo.',
+      see_doctor: 'Hágalo revisar en un día o dos. Evite frotárselo y evite los lentes de contacto hasta que lo vean.',
+      self_care: 'Enjuague suavemente con agua limpia o solución salina, descanse los ojos y evite frotarlos. Consulte a un médico si aparece dolor, enrojecimiento o visión borrosa.',
+    },
+  },
+  pregnancy: {
+    label: 'Preocupaciones durante el embarazo',
+    flags: {
+      preg_bleeding: 'Sangrado vaginal abundante',
+      preg_severe_pain: 'Dolor de barriga o cólicos intensos',
+      preg_headache_vision: 'Dolor de cabeza intenso, cambios en la vista o hinchazón repentina de la cara y las manos',
+      preg_less_movement: 'El bebé se mueve mucho menos de lo habitual (en la etapa avanzada del embarazo)',
+      preg_seizure: 'Una convulsión',
+      preg_vomit: 'Vomita tanto que no puede retener líquidos',
+      preg_fever: 'Fiebre',
+      preg_burning: 'Ardor al orinar',
+    },
+    advice: {
+      emergency: 'Llame a emergencias o vaya ahora a la sala de emergencias o a la unidad de parto más cercana. Estas señales necesitan atención inmediata para usted y su bebé.',
+      urgent_care: 'Llame a su obstetra o partera, o vaya a atención urgente hoy. Si no logra comunicarse con ellos, vaya a la sala de emergencias o a una unidad de parto.',
+      see_doctor: 'Menciónelo en su próxima consulta prenatal, o llame antes a su proveedor si le preocupa.',
+      self_care: 'Muchos síntomas del embarazo son normales, pero siempre puede llamar a su proveedor con preguntas. Llame antes si algo cambia.',
+    },
+  },
+  eating_concerns: {
+    label: 'Preocupaciones con la comida o la imagen corporal',
+    flags: {
+      ed_faint: 'Desmayos, dolor en el pecho, o latidos acelerados o irregulares',
+      ed_confusion: 'Confusión, debilidad extrema, o no puede retener ningún líquido',
+      ed_selfharm: 'Pensamientos de hacerse daño',
+      ed_restrict: 'Se salta comidas, se da atracones o se purga con más frecuencia que de manera ocasional',
+      ed_preoccupied: 'Los pensamientos sobre la comida, el peso o la forma del cuerpo ocupan su día',
+      ed_exercise: 'Hace ejercicio de forma compulsiva, o estando lesionado o enfermo',
+    },
+    advice: {
+      emergency: 'Estas señales pueden indicar una emergencia médica. Llame a emergencias o vaya ahora a la sala de emergencias más cercana. Si tiene pensamientos de hacerse daño, llame o envíe un texto al 988.',
+      urgent_care: 'Por favor, consulte pronto a un médico. Los trastornos de la conducta alimentaria son condiciones médicas, y buscar ayuda temprano marca una gran diferencia. Usted merece apoyo, no juicios.',
+      see_doctor: 'Hablar con un médico o terapeuta que conozca los problemas con la alimentación puede ayudar. No tiene que estar "lo bastante mal" para merecer apoyo.',
+      self_care: 'Mucha gente tiene dificultades con la comida y la imagen corporal en algún momento. Si ocupa cada vez más sus pensamientos, comunicarse con un médico o una línea de ayuda es un buen siguiente paso.',
+    },
+  },
+  trauma: {
+    label: 'Trauma, recuerdos repentinos o pesadillas',
+    flags: {
+      trauma_harm: 'Pensamientos de hacerse daño o de hacerle daño a otra persona',
+      trauma_danger: 'Está en peligro en este momento',
+      trauma_month: 'Recuerdos repentinos, pesadillas o pánico durante más de un mes',
+      trauma_avoid: 'Evita personas, lugares o recordatorios hasta el punto de que su vida diaria se va reduciendo',
+      trauma_numb: 'Se siente entumecido o en alerta todo el tiempo',
+    },
+    advice: {
+      emergency: 'Si está en peligro, llame a emergencias. Si piensa en hacerse daño o en hacerle daño a otra persona, llame o envíe un texto al 988 ahora mismo.',
+      urgent_care: 'Por favor, comuníquese pronto con un consejero que trabaje con trauma. El 988 también está disponible en cualquier momento en que necesite hablar.',
+      see_doctor: 'Las reacciones al trauma son comunes y se pueden tratar. Un terapeuta especializado en trauma puede ayudar, y muchos ofrecen tarifas reducidas según los ingresos.',
+      self_care: 'Las reacciones fuertes después de algo aterrador son normales y suelen aliviarse con el tiempo, el descanso y el apoyo de personas de confianza. Si duran más de unas semanas, considere hablar con un consejero.',
+    },
+  },
+  unsafe_home: {
+    label: 'Se siente inseguro en casa',
+    flags: {
+      unsafe_now: 'Alguien le está haciendo daño o amenazando en este momento',
+      unsafe_weapon: 'Hay un arma, o amenazas de muerte',
+      unsafe_strangled: 'Le ahogaron o le estrangularon',
+      unsafe_controls: 'Alguien controla su dinero, su teléfono o con quién se ve',
+      unsafe_afraid: 'Tiene miedo de cómo va a reaccionar alguien',
+      unsafe_repeat: 'Ya le hicieron daño antes y sigue ocurriendo',
+    },
+    advice: {
+      emergency: 'Si puede hacerlo con seguridad, llame a emergencias. Si llamar no es seguro, la Línea Nacional de Violencia Doméstica puede ayudarle a hacer un plan: 1-800-799-7233, o envíe START por texto al 88788.',
+      urgent_care: 'Por favor, comuníquese con la Línea Nacional de Violencia Doméstica: 1-800-799-7233, o envíe START por texto al 88788. Defensores capacitados atienden las 24 horas y pueden ayudarle a hacer un plan de seguridad.',
+      see_doctor: 'La conducta controladora es una forma de abuso, aun sin violencia física. Un defensor de la Línea Nacional de Violencia Doméstica puede conversar con usted sobre sus opciones: 1-800-799-7233.',
+      self_care: 'Usted merece sentirse seguro. Si algo cambia, o quiere conversarlo, la Línea Nacional de Violencia Doméstica está ahí: 1-800-799-7233, o envíe START por texto al 88788.',
+    },
+  },
+  postpartum: {
+    label: 'Dificultades como madre o padre reciente o posparto',
+    flags: {
+      pp_harm: 'Pensamientos de hacerse daño o de hacerle daño a su bebé',
+      pp_psychosis: 'Ve u oye cosas que no están ahí, o se siente confundido o paranoico',
+      pp_weeks: 'Tristeza, ansiedad o enojo que duran más de 2 semanas',
+      pp_bonding: 'Dificultad para crear un vínculo con su bebé o para cuidarlo',
+      pp_overwhelm: 'Siente que no puede con todo',
+    },
+    advice: {
+      emergency: 'Por favor, llame a emergencias, o llame o envíe un texto al 988, ahora mismo. Estos síntomas se pueden tratar, y usted no es un mal padre ni una mala madre por tenerlos.',
+      urgent_care: 'Por favor, llame hoy a su médico o a la Línea Nacional de Salud Mental Materna: 1-833-852-6262 (llamada o texto). La depresión y la ansiedad posparto son comunes y se pueden tratar.',
+      see_doctor: 'Muchos padres recientes pasan por dificultades emocionales. Cuéntele a su médico o partera. El apoyo de verdad ayuda.',
+      self_care: 'Los cambios de humor y el llanto en las primeras dos semanas son muy comunes. Descanse cuando pueda, acepte ayuda y pida apoyo si dura más de dos semanas.',
+    },
+  },
+  loneliness: {
+    label: 'Soledad o aislamiento',
+    flags: {
+      lonely_harm: 'Pensamientos de hacerse daño',
+      lonely_weeks: 'Se siente solo la mayoría de los días desde hace semanas, y va empeorando',
+      lonely_withdraw: 'Se aleja de todos, o dejó de hacer cosas que normalmente hace',
+    },
+    advice: {
+      emergency: 'Por favor, llame o envíe un texto al 988 ahora mismo. No tiene que estar solo con esto.',
+      urgent_care: 'Por favor, comuníquese hoy con alguien: un consejero, un médico o el 988. Las largas temporadas de soledad afectan la salud, y hay apoyo real disponible.',
+      see_doctor: 'Considere hablar con un médico o consejero. Sentirse desconectado por mucho tiempo merece tomarse en serio.',
+      self_care: 'La soledad es una señal humana, no una falla personal. Los pasos pequeños ayudan: envíe un mensaje a una persona, salga un rato, únase a un grupo o haga voluntariado. El 211 puede conectarle con programas comunitarios locales.',
+    },
+  },
+};
