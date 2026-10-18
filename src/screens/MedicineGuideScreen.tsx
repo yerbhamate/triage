@@ -2,20 +2,27 @@ import React from 'react';
 import { View, Text, StyleSheet, Pressable, FlatList } from 'react-native';
 import { MEDICINES } from '../data/medicines';
 import { MedIcon } from '../components/MedIcon';
+import { MEDICINES_ES } from '../data/es/medicines.es';
+import { useLang } from '../i18n/LanguageContext';
 
 export function MedicineGuideScreen({ onBack }: { onBack: () => void }) {
+  const { lang } = useLang();
+  const es = lang === 'es';
+  const data = MEDICINES.map((m) => (es && MEDICINES_ES[m.id] ? { ...m, ...MEDICINES_ES[m.id] } : m));
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Medicine & Supplies Guide</Text>
+      <Text style={styles.title}>{es ? 'Guía de medicinas y suministros' : 'Medicine & Supplies Guide'}</Text>
       <Text style={styles.subtitle}>
-        What common medicines and supplies are for. No doses are listed on purpose. Always follow the package label and ask a pharmacist if you are unsure.
+        {es
+          ? 'Para qué sirven las medicinas y los suministros comunes. A propósito, no se incluyen dosis. Siga siempre la etiqueta del envase y pregunte a un farmacéutico si tiene dudas.'
+          : 'What common medicines and supplies are for. No doses are listed on purpose. Always follow the package label and ask a pharmacist if you are unsure.'}
       </Text>
 
       <FlatList
-        data={MEDICINES}
+        data={data}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (

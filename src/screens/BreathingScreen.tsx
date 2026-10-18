@@ -1,13 +1,23 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, Animated, Easing } from 'react-native';
+import { useLang } from '../i18n/LanguageContext';
 
 type Phase = 'Ready' | 'Breathe in' | 'Hold' | 'Breathe out';
+
+const PHASE_ES: Record<Phase, string> = {
+  'Ready': 'Listo',
+  'Breathe in': 'Inhale',
+  'Hold': 'Mantenga',
+  'Breathe out': 'Exhale',
+};
 
 const SMALL = 0.55;
 const BIG = 1;
 
 /** Slow breathing: in for 4, hold for 4, out for 6. Runs entirely on-device. */
 export function BreathingScreen({ onBack }: { onBack: () => void }) {
+  const { lang } = useLang();
+  const es = lang === 'es';
   const scale = useRef(new Animated.Value(SMALL)).current;
   const runningRef = useRef(false);
   const holdTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -64,26 +74,30 @@ export function BreathingScreen({ onBack }: { onBack: () => void }) {
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Guided Breathing</Text>
+      <Text style={styles.title}>{es ? 'Respiración guiada' : 'Guided Breathing'}</Text>
       <Text style={styles.subtitle}>
-        In for 4 {'\u00B7'} hold for 4 {'\u00B7'} out for 6. Follow the circle. Slow breathing can help a racing heart and mind settle.
+        {es
+          ? 'Inhale 4 \u00B7 mantenga 4 \u00B7 exhale 6. Siga el círculo. Respirar despacio puede ayudar a calmar un corazón y una mente acelerados.'
+          : 'In for 4 \u00B7 hold for 4 \u00B7 out for 6. Follow the circle. Slow breathing can help a racing heart and mind settle.'}
       </Text>
 
       <View style={styles.circleArea}>
         <Animated.View style={[styles.circle, { transform: [{ scale }] }]} />
-        <Text style={styles.phase}>{phase}</Text>
+        <Text style={styles.phase}>{es ? PHASE_ES[phase] : phase}</Text>
       </View>
 
-      <Text style={styles.cycles}>{running ? `Breaths completed: ${cycles}` : 'Tap start when you are ready'}</Text>
+      <Text style={styles.cycles}>{running ? (es ? `Respiraciones completadas: ${cycles}` : `Breaths completed: ${cycles}`) : (es ? 'Toque Iniciar cuando esté listo' : 'Tap start when you are ready')}</Text>
 
       <Pressable style={[styles.button, running && styles.buttonStop]} onPress={running ? stop : start}>
-        <Text style={styles.buttonText}>{running ? 'Stop' : 'Start'}</Text>
+        <Text style={styles.buttonText}>{running ? (es ? 'Detener' : 'Stop') : (es ? 'Iniciar' : 'Start')}</Text>
       </Pressable>
 
       <Text style={styles.note}>
-        If you feel faint, stop and breathe normally. If you are in crisis, call or text 988.
+        {es
+          ? 'Si siente mareo, deténgase y respire con normalidad. Si está en crisis, llame o envíe un texto al 988.'
+          : 'If you feel faint, stop and breathe normally. If you are in crisis, call or text 988.'}
       </Text>
     </View>
   );

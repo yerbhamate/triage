@@ -3,24 +3,31 @@ import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import { COST_SECTIONS } from '../data/costsRights';
 import { RESOURCES } from '../data/resources';
 import { ResourceCard } from '../components/ResourceCard';
+import { COST_SECTIONS_ES } from '../data/es/costsRights.es';
+import { useLang } from '../i18n/LanguageContext';
 
 const HELP_IDS = ['211', 'hrsa'];
 
 export function CostsScreen({ onBack }: { onBack: () => void }) {
+  const { lang } = useLang();
+  const es = lang === 'es';
+  const sections = COST_SECTIONS.map((c) => (es && COST_SECTIONS_ES[c.id] ? { ...c, ...COST_SECTIONS_ES[c.id] } : c));
   const help = RESOURCES.filter((r) => HELP_IDS.includes(r.id));
 
   return (
     <View style={styles.container}>
       <Pressable onPress={onBack} style={styles.backButton}>
-        <Text style={styles.backText}>{'\u2190'} Back</Text>
+        <Text style={styles.backText}>{'\u2190'} {es ? 'Atrás' : 'Back'}</Text>
       </Pressable>
-      <Text style={styles.title}>Costs & Your Rights</Text>
+      <Text style={styles.title}>{es ? 'Costos y sus derechos' : 'Costs & Your Rights'}</Text>
       <Text style={styles.subtitle}>
-        Fear of the bill keeps people from getting care. Here is what you should know. General information for the United States, not legal advice. Rules vary by state and hospital.
+        {es
+          ? 'El miedo a la factura impide que la gente reciba atención. Esto es lo que debe saber. Información general para Estados Unidos, no es asesoría legal. Las reglas varían según el estado y el hospital.'
+          : 'Fear of the bill keeps people from getting care. Here is what you should know. General information for the United States, not legal advice. Rules vary by state and hospital.'}
       </Text>
 
       <ScrollView contentContainerStyle={styles.list}>
-        {COST_SECTIONS.map((section) => (
+        {sections.map((section) => (
           <View key={section.id} style={styles.card}>
             <Text style={styles.cardTitle}>{section.icon}  {section.title}</Text>
             {section.points.map((point, i) => (
@@ -32,7 +39,7 @@ export function CostsScreen({ onBack }: { onBack: () => void }) {
           </View>
         ))}
 
-        <Text style={styles.helpTitle}>Help finding low-cost care</Text>
+        <Text style={styles.helpTitle}>{es ? 'Ayuda para encontrar atención de bajo costo' : 'Help finding low-cost care'}</Text>
         {help.map((r) => (
           <ResourceCard key={r.id} resource={r} />
         ))}
