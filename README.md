@@ -1,6 +1,6 @@
 # Triage
 
-A free health guide that works with **no internet, no account, and no cost**.
+A free health guide that works with **no internet, no account, and no cost**. Available in **English and Spanish**, switchable from the home screen.
 
 Pick what's going on, check any warning signs, and get a clear next step: **Emergency**, **Urgent Care Today**, **See a Doctor Soon**, or **Self-Care**. Then get free help you can reach right away.
 
@@ -14,7 +14,8 @@ Lots of people have no good way to answer the question "is this serious?" at the
 - **59 conditions** across **Physical** and **Mental & Emotional** health, from emergencies (chest pain, stroke signs) to everyday things (sore throat, sunburn, social anxiety), searchable from one box
 - **Conservative triage with four levels.** Any single red-flag sign always escalates to *Emergency*. Milder warning signs step up to *Urgent Care* or *See a Doctor Soon*
 - **Free help after every result:** the right U.S. hotlines and services for that situation, with one-tap call and text
-- **Read aloud** on every result, for low-vision and low-literacy users
+- **Read aloud** on every result, for low-vision and low-literacy users, spoken in the language you chose
+- **English and Spanish (Español).** All 59 conditions, warning signs, results, hotline descriptions, first aid guides, medicine guide, costs guide, and tools are translated. The choice is remembered on the device. Phone numbers and text keywords are never translated.
 
 **Things most health apps leave out**
 - **Costs & Your Rights.** Fear of the bill is a top reason people avoid care. Plain-language guide to ER rights, hospital financial assistance, surprise bills, and lower-cost care
@@ -40,6 +41,7 @@ Lots of people have no good way to answer the question "is this serious?" at the
 ## Honest limitations
 
 - This is **general guidance, not a diagnosis**, and it has **not been clinically reviewed or validated**. Content is written from widely published public guidance (American Red Cross, American Heart Association, CDC) and should be reviewed by a clinician before any real-world release.
+- The **Spanish translation** was drafted with AI assistance and reviewed by the developer, a fluent Spanish speaker. It has not been checked by a certified medical translator or a clinician. If a Spanish string is ever missing, the app shows the English text instead.
 - Resources and the Costs & Your Rights guide are **U.S. only**. Hotline numbers and legal facts (EMTALA, the No Surprises Act, hospital financial assistance rules) were checked against official or authoritative sources in October 2026 and must be re-checked before every release. The rights guide is general information, not legal advice.
 - Anyone who opens the app on the device can see the safety plan and past checks. The app says so, and both can be cleared.
 - Calling and texting need a phone. On a tablet the app shows the number to dial instead.
@@ -65,7 +67,9 @@ src/data/
   medicines.ts                  what common medicines/supplies are for (no doses)
   firstAid.ts                   step-by-step first aid
   costsRights.ts                costs and patient-rights guide
+  es/                           Spanish text for every data file, keyed by the same ids
 src/utils/triageEngine.ts       red flag => emergency, moderate => urgent care, soft => see a doctor
+src/i18n/                       language switch (English/Spanish) and helpers
 src/components/MedIcon.tsx      the consistent medicine icon set
 src/screens/                    home, flag check, result, history, tools, safety plan, visit prep
 ```
@@ -73,3 +77,5 @@ src/screens/                    home, flag check, result, history, tools, safety
 ## Add a condition
 
 Add an entry to `src/data/everydaySymptoms.ts` with its red flags, moderate flags, optional soft flags, default level, and advice for each of the four urgency levels. Keep red flags conservative. When in doubt, escalate.
+
+Then add its Spanish text (label, every flag, and all four advice levels) under src/data/es/, using the same ids. Until you do, that condition shows in English when the app is set to Spanish.

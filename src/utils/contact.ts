@@ -1,4 +1,13 @@
 import { Alert, Linking, Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+async function isSpanish(): Promise<boolean> {
+  try {
+    return (await AsyncStorage.getItem('@triage/lang')) === 'es';
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Open the phone dialer. If this device cannot place calls (an iPad, an emulator), show the number
@@ -14,7 +23,13 @@ export async function callNumber(number: string, displayLabel: string): Promise<
   } catch {
     // fall through to the alert
   }
-  Alert.alert('Call from a phone', `This device cannot place calls. Dial ${displayLabel} from a phone.`);
+  const es = await isSpanish();
+  Alert.alert(
+    es ? 'Llame desde un teléfono' : 'Call from a phone',
+    es
+      ? `Este dispositivo no puede hacer llamadas. Marque ${displayLabel} desde un teléfono.`
+      : `This device cannot place calls. Dial ${displayLabel} from a phone.`,
+  );
 }
 
 /** Open the messages app with the number and starting text filled in. */
@@ -29,13 +44,23 @@ export async function textNumber(to: string, body: string, displayLabel: string)
   } catch {
     // fall through to the alert
   }
-  Alert.alert('Text from a phone', `This device cannot send texts. ${displayLabel} from a phone.`);
+  const es = await isSpanish();
+  Alert.alert(
+    es ? 'Envíe el texto desde un teléfono' : 'Text from a phone',
+    es
+      ? `Este dispositivo no puede enviar textos. ${displayLabel} desde un teléfono.`
+      : `This device cannot send texts. ${displayLabel} from a phone.`,
+  );
 }
 
 export async function openLink(href: string): Promise<void> {
   try {
     await Linking.openURL(href);
   } catch {
-    Alert.alert('Could not open link', 'This link needs an internet connection.');
+    const es = await isSpanish();
+    Alert.alert(
+      es ? 'No se pudo abrir el enlace' : 'Could not open link',
+      es ? 'Este enlace necesita conexión a internet.' : 'This link needs an internet connection.',
+    );
   }
 }
