@@ -41,7 +41,6 @@ Lots of people have no good way to answer the question "is this serious?" at the
 ## Honest limitations
 
 - This is **general guidance, not a diagnosis**, and it has **not been clinically reviewed or validated**. Content is written from widely published public guidance (American Red Cross, American Heart Association, CDC) and should be reviewed by a clinician before any real-world release.
-- The **Spanish translation** was drafted with AI assistance and reviewed by the developer, a fluent Spanish speaker. It has not been checked by a certified medical translator or a clinician. If a Spanish string is ever missing, the app shows the English text instead.
 - Resources and the Costs & Your Rights guide are **U.S. only**. Hotline numbers and legal facts (EMTALA, the No Surprises Act, hospital financial assistance rules) were checked against official or authoritative sources in October 2026 and must be re-checked before every release. The rights guide is general information, not legal advice.
 - Anyone who opens the app on the device can see the safety plan and past checks. The app says so, and both can be cleared.
 - Calling and texting need a phone. On a tablet the app shows the number to dial instead.
